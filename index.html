@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estacionamento</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #2c2c2c;
+      padding: 60px; /* Aumentar o padding */
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 1000px; /* Aumentar a largura máxima */
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    img {
+      flex: 1;
+      max-width: 350px; /* Aumentar a largura máxima da imagem */
+      height: auto;
+      border-radius: 20px;
+      margin: 20px; /* Espaçamento ao redor da imagem */
+    }
+
+    .formulario {
+      flex: 2;
+      min-width: 300px;
+      margin-left: 30px; /* Aumentar o espaçamento à esquerda */
+    }
+
+    h2 {
+      font-size: 26px; /* Aumentar o tamanho da fonte */
+      margin-bottom: 20px;
+      color: #FFD700;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px; /* Aumentar o padding */
+      margin: 10px 0;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      font-size: 16px; /* Aumentar o tamanho da fonte */
+    }
+
+    input::placeholder {
+      color: #bbb;
+    }
+
+    button {
+      padding: 12px 20px; /* Aumentar o padding */
+      margin: 10px 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #FFD700;
+      color: #121212;
+      cursor: pointer;
+      font-size: 18px; /* Aumentar o tamanho da fonte */
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #FFC107;
+    }
+
+    .resumo {
+      width: 100%;
+      padding: 10px;
+      border-top: 1px solid #444;
+      color: #FFD700;
+      text-align: left;
+      margin-top: 20px; /* Espaçamento superior */
+    }
+
+    .resumo p {
+      margin: 5px 0;
+      font-size: 16px; /* Aumentar o tamanho da fonte */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="img/pexels-sarmad-mughal-94606-305070.jpg" alt="carro">
+    <div class="formulario">
+      <h2>Dados do Cliente</h2>
+      <input type="text" id="nome" placeholder="Digite o nome do cliente" required>
+      <input type="text" id="placa" placeholder="Placa" required>
+      <input type="text" id="carro" placeholder="Carro" required>
+      <input type="number" id="dias" placeholder="Quantos Dias" min="1" required>
+      <input type="number" id="valorDiaria" placeholder="Valor da diária" min="0" required>
+      <button onclick="calcular()">Calcular</button>
+      <button onclick="limpar()">Limpar</button>
+      <button onclick="sair()">Sair</button>
+    </div>
+    <div class="resumo">
+      <h2>Resumo</h2>
+      <p id="nomeCliente"></p>
+      <p id="placaCliente"></p>
+      <p id="carroCliente"></p>
+      <p id="diasCliente"></p>
+      <p id="valorTotalSemDesconto"></p>
+      <p id="valorTotalComDesconto"></p>
+    </div>
+  </div>
+
+  <script>
+    function calcular() {
+      const nome = document.getElementById('nome').value;
+      const placa = document.getElementById('placa').value;
+      const carro = document.getElementById('carro').value;
+      const dias = parseInt(document.getElementById('dias').value);
+      const valorDiaria = parseFloat(document.getElementById('valorDiaria').value);
+
+      if (isNaN(dias) || isNaN(valorDiaria) || dias < 1 || valorDiaria < 0) {
+        alert("Por favor, insira valores válidos.");
+        return;
+      }
+
+      const valorTotalSemDesconto = dias * valorDiaria;
+      const valorTotalComDesconto = valorTotalSemDesconto > 150 ? valorTotalSemDesconto * 0.9 : valorTotalSemDesconto;
+
+      document.getElementById('nomeCliente').textContent = `Nome: ${nome}`;
+      document.getElementById('placaCliente').textContent = `Placa: ${placa}`;
+      document.getElementById('carroCliente').textContent = `Carro: ${carro}`;
+      document.getElementById('diasCliente').textContent = `Vai ficar: ${dias} dias`;
+      document.getElementById('valorTotalSemDesconto').textContent = `Valor sem desconto: R$ ${valorTotalSemDesconto.toFixed(2)}`;
+      document.getElementById('valorTotalComDesconto').textContent = `Valor total com desconto: R$ ${valorTotalComDesconto.toFixed(2)}`;
+    }
+
+    function limpar() {
+      document.getElementById('nome').value = '';
+      document.getElementById('placa').value = '';
+      document.getElementById('carro').value = '';
+      document.getElementById('dias').value = '';
+      document.getElementById('valorDiaria').value = '';
+      document.getElementById('nomeCliente').textContent = '';
+      document.getElementById('placaCliente').textContent = '';
+      document.getElementById('carroCliente').textContent = '';
+      document.getElementById('diasCliente').textContent = '';
+      document.getElementById('valorTotalSemDesconto').textContent = '';
+      document.getElementById('valorTotalComDesconto').textContent = '';
+    }
+
+    function sair() {
+      alert("Obrigado, volte sempre :)");
+    }
+  </script>
+</body>
+</html>
